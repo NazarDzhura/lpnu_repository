@@ -61,12 +61,52 @@ public:
         }
     }
 
+    void deleteResistor() {
+        int count = 0;
+        int pos, i;
+        node* ptr;
+        node* s;
+        if (start == end && start == NULL) {
+            cout << "List is empty, nothing to delete" << endl;
+            return;
+        }
+        cout << endl << "Enter the position of element to be deleted: ";
+        cin >> pos;
+        if (count < pos) {
+            cout << "Position out of range" << endl;
+            return;
+        }
+        s = start;
+        if (pos == 1) {
+            count--;
+            end->n = s->n;
+            s->n->p = end;
+            start = s->n;
+            free(s);
+            cout << "Element Deleted" << endl;
+            return;
+        }
+        for (i = 0; i < pos - 1; i++) {
+            s = s->n;
+            ptr = s->p;
+        }
+        ptr->n = s->n;
+        s->n->p = ptr;
+        if (pos == count) {
+            end = ptr;
+        }
+        count--;
+        free(s);
+        cout << "Element Deleted" << endl;
+    }
+
     void swapCells(node* cell1, node* cell2) {
         node* temp = new node;
         temp->info = cell1->info;
         cell1->info = cell2->info;
         cell2->info = temp->info;
     }
+
     void sortResistors() {
         bool isSorted = false;
         node* temp = this->start;
@@ -122,6 +162,7 @@ int main()
     list.addResitor(r6);
     list.addResitor(r7);
     list.addResitor(r8);
+    list.deleteResistor();
 
     list.outputResistors(25);
 }
